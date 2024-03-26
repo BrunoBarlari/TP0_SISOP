@@ -20,7 +20,7 @@ int main(void)
 	// Escribi: "Hola! Soy un log"
 
 	log_info(logger, "Hola! Soy un log");
-
+	printf("hola");
 	/* ---------------- ARCHIVOS DE CONFIGURACION ---------------- */
 
 	config = iniciar_config();
