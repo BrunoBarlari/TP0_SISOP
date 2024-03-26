@@ -1,4 +1,5 @@
 #include "client.h"
+#include "readline/readline.h"
 
 int main(void)
 {
@@ -34,7 +35,6 @@ int main(void)
 
 	// Loggeamos el valor de config
 	log_info(logger, "%s", valor); //! Le paso %s por temas de seguridad en C
-	log_destroy(logger);
 
 	/* ---------------- LEER DE CONSOLA ---------------- */
 
@@ -96,7 +96,14 @@ void leer_consola(t_log *logger)
 	leido = readline("> ");
 
 	// El resto, las vamos leyendo y logueando hasta recibir un string vacío
+	while (strlen(leido) > 0)
+	{
+		log_info(logger, leido);
+		free(leido);
+		leido = readline("> ");
+	}
 
+	free(leido);
 	// ¡No te olvides de liberar las lineas antes de regresar!
 }
 
@@ -116,4 +123,3 @@ void terminar_programa(int conexion, t_log *logger, t_config *config)
 	/* Y por ultimo, hay que liberar lo que utilizamos (conexion, log y config)
 		con las funciones de las commons y del TP mencionadas en el enunciado */
 }
-
