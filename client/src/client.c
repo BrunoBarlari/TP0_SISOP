@@ -39,7 +39,7 @@ int main(void)
 	/* ---------------- LEER DE CONSOLA ---------------- */
 
 	leer_consola(logger);
-
+	
 	/*---------------------------------------------------PARTE 3-------------------------------------------------------------*/
 
 	// ADVERTENCIA: Antes de continuar, tenemos que asegurarnos que el servidor esté corriendo para poder conectarnos a él
@@ -98,7 +98,7 @@ void leer_consola(t_log *logger)
 	// El resto, las vamos leyendo y logueando hasta recibir un string vacío
 	while (strlen(leido) > 0)
 	{
-		log_info(logger, leido);
+		log_info(logger, "%s", leido);
 		free(leido);
 		leido = readline("> ");
 	}
