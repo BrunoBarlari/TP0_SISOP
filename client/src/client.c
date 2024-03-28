@@ -39,7 +39,7 @@ int main(void)
 	/* ---------------- LEER DE CONSOLA ---------------- */
 
 	leer_consola(logger);
-	
+
 	/*---------------------------------------------------PARTE 3-------------------------------------------------------------*/
 
 	// ADVERTENCIA: Antes de continuar, tenemos que asegurarnos que el servidor esté corriendo para poder conectarnos a él
@@ -47,9 +47,9 @@ int main(void)
 	// Creamos una conexión hacia el servidor
 	conexion = crear_conexion(ip, puerto);
 
-	// Enviamos al servidor el valor de CLAVE como mensaje
+	// TODO: Enviamos al servidor el valor de CLAVE como mensaje
 
-	// Armamos y enviamos el paquete
+	// TODO: Armamos y enviamos el paquete
 	paquete(conexion);
 
 	terminar_programa(conexion, logger, config);
@@ -113,13 +113,12 @@ void paquete(int conexion)
 	char *leido;
 	t_paquete *paquete;
 
-	// Leemos y esta vez agregamos las lineas al paquete
+	// TODO: Leemos y esta vez agregamos las lineas al paquete
 
-	// ¡No te olvides de liberar las líneas y el paquete antes de regresar!
+	// TODO: ¡No te olvides de liberar las líneas y el paquete antes de regresar!
 }
 
 void terminar_programa(int conexion, t_log *logger, t_config *config)
 {
-	/* Y por ultimo, hay que liberar lo que utilizamos (conexion, log y config)
-		con las funciones de las commons y del TP mencionadas en el enunciado */
+	//TODO: Y por ultimo, hay que liberar lo que utilizamos (conexion, log y config) con las funciones de las commons y del TP mencionadas en el enunciado 
 }

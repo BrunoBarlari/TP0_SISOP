@@ -28,12 +28,12 @@ int iniciar_servidor(void)
 
 	bind(sockect_servidor, servinfo->ai_addr, servinfo->ai_addrlen);
 
-	// TODO: Escuchamos las conexiones entrantes
+	// Escuchamos las conexiones entrantes
 	listen(socket_servidor, SOMAXCONN);
 
 	freeaddrinfo(servinfo);
 	log_trace(logger, "Listo para escuchar a mi cliente");
-	
+
 	esperar_cliente();
 
 	return socket_servidor;
@@ -44,7 +44,7 @@ int esperar_cliente(int socket_servidor)
 	//! Quitar esta línea cuando hayamos terminado de implementar la funcion
 	assert(!"no implementado!");
 
-	// TODO: Aceptamos un nuevo cliente
+	// Aceptamos un nuevo cliente
 	int socket_cliente;
 
 	socket_cliente = accept(socket_servidor, NULL, NULL);
