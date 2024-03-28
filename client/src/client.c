@@ -47,7 +47,15 @@ int main(void)
 	// Creamos una conexión hacia el servidor
 	conexion = crear_conexion(ip, puerto);
 
-	// TODO: Enviamos al servidor el valor de CLAVE como mensaje
+	// TODO: Enviamos al servidor el valor de CLAVE como mensaje "Handshake"
+
+	uint32_t handshake = 1;
+	uint32_t result;
+
+	send(conexion, &handshake, sizeof(uint32_t), NULL);
+	recv(conexion, &result, sizeof(uint32_t), MSG_WAITALL);
+
+
 
 	// TODO: Armamos y enviamos el paquete
 	paquete(conexion);
@@ -120,5 +128,5 @@ void paquete(int conexion)
 
 void terminar_programa(int conexion, t_log *logger, t_config *config)
 {
-	//TODO: Y por ultimo, hay que liberar lo que utilizamos (conexion, log y config) con las funciones de las commons y del TP mencionadas en el enunciado 
+	// TODO: Y por ultimo, hay que liberar lo que utilizamos (conexion, log y config) con las funciones de las commons y del TP mencionadas en el enunciado
 }

@@ -41,7 +41,7 @@ int crear_conexion(char *ip, char *puerto)
 	// Ahora que tenemos el socket, vamos a conectarlo
 
 	int conexion = connect(socket_cliente, server_info->ai_addr, server_info->ai_addrlen);
-	
+
 	if (conexion == -1)
 	{
 		perror("Error al conectar el socket");
