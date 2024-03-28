@@ -47,7 +47,7 @@ int main(void)
 	// Creamos una conexión hacia el servidor
 	conexion = crear_conexion(ip, puerto);
 
-	// TODO: Enviamos al servidor el valor de CLAVE como mensaje "Handshake"
+	// Enviamos al servidor el valor de CLAVE como mensaje "Handshake"
 
 	uint32_t handshake = 1;
 	uint32_t result;
@@ -55,7 +55,15 @@ int main(void)
 	send(conexion, &handshake, sizeof(uint32_t), NULL);
 	recv(conexion, &result, sizeof(uint32_t), MSG_WAITALL);
 
-
+	if (result == 0)
+	{
+		log_info(logger, "Handshake recibido");
+	}
+	else
+	{
+		log_error(logger, "Error en el handshake");
+		exit(1);
+	}
 
 	// TODO: Armamos y enviamos el paquete
 	paquete(conexion);
