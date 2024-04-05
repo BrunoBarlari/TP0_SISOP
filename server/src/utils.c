@@ -16,7 +16,7 @@ int iniciar_servidor(void)
 
 	getaddrinfo(NULL, PUERTO, &hints, &servinfo);
 
-	socket_servidor = socket(server_info->ai_family, server_info->ai_socktype, server_info->ai_protocol);
+	socket_servidor = socket(servinfo->ai_family, servinfo->ai_socktype, servinfo->ai_protocol);
 
 	if (socket_servidor == -1)
 	{
@@ -24,7 +24,8 @@ int iniciar_servidor(void)
 		abort();
 	}
 
-	bind(sockect_servidor, servinfo->ai_addr, servinfo->ai_addrlen);
+	// Bind socket
+	bind(socket_servidor, servinfo->ai_addr, servinfo->ai_addrlen);
 
 	// Escuchamos las conexiones entrantes
 	listen(socket_servidor, SOMAXCONN);

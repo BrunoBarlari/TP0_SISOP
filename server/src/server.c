@@ -21,16 +21,18 @@ int main(void)
 
 	if (handshake == 1)
 	{
-		send(socket_cliente, &resultOk, sizeof(uint32_t), NULL);
+		send(cliente_fd, &resultOk, sizeof(uint32_t), NULL);
 		log_info(logger, "Handshake recibido");
 	}
 	else
 	{
-		send(socket_cliente, &resultError, sizeof(uint32_t), NULL);
+		send(cliente_fd, &resultError, sizeof(uint32_t), NULL);
 		log_error(logger, "Error en el handshake");
 		exit(1);
 	}
 
+	// Recibir mensajes y guardarlos en el log
+	
 	t_list *lista;
 	while (1)
 	{

@@ -5,10 +5,11 @@ int main(void)
 {
 	/*---------------------------------------------------PARTE 2-------------------------------------------------------------*/
 
-	int conexion;
 	char *ip;
 	char *puerto;
 	char *valor;
+
+	int conexion;
 
 	t_log *logger;
 	t_config *config;
@@ -38,7 +39,7 @@ int main(void)
 
 	/* ---------------- LEER DE CONSOLA ---------------- */
 
-	leer_consola(logger);
+	// leer_consola(logger);
 
 	/*---------------------------------------------------PARTE 3-------------------------------------------------------------*/
 
@@ -52,8 +53,8 @@ int main(void)
 	uint32_t handshake = 1;
 	uint32_t result;
 
-	send(conexion, &handshake, sizeof(uint32_t), NULL);
-	recv(conexion, &result, sizeof(uint32_t), MSG_WAITALL);
+	send(conexion, &handshake, sizeof(uint32_t), NULL);		// Manda handshake al servidor
+	recv(conexion, &result, sizeof(uint32_t), MSG_WAITALL); // Recibe handshake del servidor
 
 	if (result == 0)
 	{
@@ -66,9 +67,14 @@ int main(void)
 	}
 
 	// TODO: Armamos y enviamos el paquete
-	paquete(conexion);
 
+	enviar_mensaje(valor, conexion);
+	paquete(conexion);
 	terminar_programa(conexion, logger, config);
+
+	valor = NULL;
+	ip = NULL;
+	puerto = NULL;
 
 	/*---------------------------------------------------PARTE 5-------------------------------------------------------------*/
 	// Proximamente
@@ -120,21 +126,47 @@ void leer_consola(t_log *logger)
 	}
 
 	free(leido);
-	// ¡No te olvides de liberar las lineas antes de regresar!
+
+	leido = NULL;
 }
 
-void paquete(int conexion)
+void paquete(int socket_cliente)
 {
 	// Ahora toca lo divertido!
 	char *leido;
 	t_paquete *paquete;
+	{
+		// Ahora toca lo divertido!
+		char *leido;
+		t_paquete *paquete;
 
-	// TODO: Leemos y esta vez agregamos las lineas al paquete
+		paquete = crear_paquete();
 
-	// TODO: ¡No te olvides de liberar las líneas y el paquete antes de regresar!
+		leido = readline("> ");
+
+		while (strlen(leido) > 0)
+		{
+
+			// Agrega lineas leidas al buffer
+			agregar_a_paquete(paquete, leido, strlen(leido) + 1); // +1 para el \0
+			free(leido);
+			leido = readline("> ");
+		}
+
+		// Envia Buffer
+		enviar_paquete(paquete, socket_cliente);
+		eliminar_paquete(paquete);
+
+		free(leido);
+
+		// Seteamos en NULL para que no se libere dos veces
+		leido = NULL;
+		paquete = NULL;
+	}
 }
-
 void terminar_programa(int conexion, t_log *logger, t_config *config)
 {
-	// TODO: Y por ultimo, hay que liberar lo que utilizamos (conexion, log y config) con las funciones de las commons y del TP mencionadas en el enunciado
+	liberar_conexion(conexion);
+	log_destroy(logger);
+	config_destroy(config);
 }
